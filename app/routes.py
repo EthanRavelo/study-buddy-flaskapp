@@ -365,6 +365,22 @@ def admin():
     # db.session.commit()
 
     return ("Reset complete! (100,000,000 coins, 0 items, 0:00 session timer)")
+
+@app.route('/testing')
+def testing():
+    """gives the current users 100,000,000 coins and clears their inventory
+       ** USED FOR DEV TESTING **
+    """
+
+    user = Coin.query.get(current_user.id)  # query user's coins
+    user.coins = 4350  # set coins to 10000
+    db.session.commit()
+
+    # user = currentData.query.get(current_user.id)
+    # user.time = 0
+    # db.session.commit()
+
+    return ("Reset complete! (some coins coins)")
     
 
 # @app.route('/ajax_test', methods=['POST', 'GET'])
