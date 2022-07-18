@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title style="margin-left: 10px;">SETTINGS</title>
+    <style>
+        .w300 {
+            width: 300px
+        }
+
+        body {
+            background-color: gray;
+            background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgb(69, 115, 69) 0%, rgb(220, 49, 189) 90% );
+            /* background-image: url("https://news.umanitoba.ca/wp-content/uploads/2013/10/iStock_000019012355Medium.jpg"); */
+
+            /* Full height */
+            height: 100%;
+            animation: gradient 15s ease infinite;
+
+            /* Center and scale the image nicely */
+            /* background-position: 0 -300px;
+            ;
+            background-repeat: no-repeat;
+            background-size: cover; */
+        }
+        body {
+            background: linear-gradient(270deg, #ffa600, #8d0000);
+            /* background: linear-gradient(270deg, #a97618, #7a0000); */
+            background-size: 400% 400%;
+            animation: AnimationName 20s ease infinite;
+        }
+
+        @keyframes AnimationName {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+
+        /* The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-bottom: 3px;
+            vertical-align: middle;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .h2{
+            color: white;
+            margin: auto;
+            text-align: center;
+            font-size: 24px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .submit{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 15px;
+        border: 2px solid #8888889b;
+        border-radius: 10px;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(225, 216, 115);
+        letter-spacing: 2px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .submit:hover{
+        background-color: rgb(207, 200, 109);
+    }
+
+    .settings {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: larger;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        display: inline-block;
+    }
+
+    .settingsinput {
+        font-family: 'Courier New', Courier, monospace;
+        padding-left: 20px;
+        border-radius: 5px;
+        padding: 7px;
+        border: 2px solid #8888889b;
+        background-color: rgba(255, 255, 255, 0.491);
+        /* font-weight: semi bold; */
+        
+    }
+
+    .h2{
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.216);
+        border-collapse: collapse;
+    }
+
+    .typewriter h1 {
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: .15em solid orange; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+        letter-spacing: .15em; /* Adjust as needed */
+        animation: 
+        typing 2.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+    }
+
+    .typewriter{
+        margin-bottom: 20px;
+    }
+
+    /* The typing effect */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    /* The typewriter cursor effect */
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: rgb(255, 77, 0); }
+    }
+
+
+    .plsCenter {
+        top: 50%;
+        /* border: .5px solid rgb(255, 255, 255); */
+        width: fit-content;
+        padding-top: 50px;
+        padding-bottom: 35px;
+        padding-right: 120px;
+        padding-left: 120px;
+        background-color: rgba(245, 245, 245, 0.243);
+        box-shadow: 7px 12px #8888889b;
+        
+    }
+       
+    </style>
+</head>
+
+<body>
+    <!-- <form id='form'>
+        <center>
+            <span id='adjective'></span>
+            <span id='animal'></span>
+        </center>
+    </form> -->
+    <!-- <h1 id="session_timer"></h1> -->
+    <div class="plsCenter">
+    
+    <center>
+    <div class="typewriter">
+        <h1 class="white shadow">Hello, {{ name }}.</h1>
+    </div><br>
+
+    <form method=post>
+        
+            <!-- <label id="session_timer" class="h2">0:00:00</label><br><br> -->
+            <label class="settings" for="studying">Study Subject: </label>
+            <input type="text" class = "settingsinput" id="subject" name="subject" value={{ info[0][0] }}><br><br>
+            <label class="settings" for="lname">Grade: </label>
+            <input type="text" id="year" class ="settingsinput" name="year" value={{ info[0][1] }}><br><br>
+            <label class="settings" for="messaging">Allow Messaging: </label>
+            <label class="switch">
+                <input type="checkbox" id='messaging' name="messaging" value = true>
+                <span class="slider round"></span>
+            </label><br><br>
+
+            <input type=submit value=Submit class = submit>
+        
+    </form>
+
+    </center>
+
+    </div>
+
+    <script>
+        setInterval(getTime, 1000);
+        function choice(object){
+            var id = object.id;
+            var element = document.getElementById(id);
+            var picked = document.getElementsByClassName("picked");
+
+            for (let i=0; i<picked.length; i++){
+                picked[i].className = "unpicked"
+            }
+
+            element.className = "picked";
+            send(id);
+        }
+
+        function send(username) {
+            console.log("Adding to database...")
+
+            var data = [
+                {"username":username},
+            ];
+            
+            $.ajax({
+                type: "POST",
+                url: "/setUsername",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {} 
+            });
+        }
+
+    function getTime() {
+        const sec = localStorage.time; // convert value to number if it's string
+        let hours   = Math.floor(sec / 3600); // get hours
+        let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+        let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+        // add 0 if value < 10; Example: 2 => 02
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        document.getElementById("session_timer").innerHTML = hours+':'+minutes+':'+seconds; // Return is HH : MM : SS
+    }
+    </script>
+
+</body>
+
+{% endblock %}

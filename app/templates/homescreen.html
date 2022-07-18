@@ -1,0 +1,580 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+  <script>
+    if (localStorage.bg == "beach") {
+      document.body.style.backgroundImage = "url('" + "https://images.unsplash.com/photo-1481988535861-271139e06469?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1190&q=80" + "')";
+    }
+    else if (localStorage.bg =="spaceboat"){ 
+      document.body.style.backgroundImage = "url('"+"https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg"+"')";
+    }
+    else if (localStorage.bg =="earth"){
+      document.body.style.backgroundImage = "url('"+"https://cdn.pixabay.com/photo/2016/10/20/18/35/earth-1756274_1280.jpg"+"')";
+    }
+    else if (localStorage.bg =="citylights"){
+      document.body.style.backgroundImage = "url('"+"https://images.unsplash.com/photo-1548602088-9d12a4f9c10f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2052&q=80"+"')";
+    }
+    else if (localStorage.bg =="emptyLake"){
+      document.body.style.backgroundImage = "url('"+"https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg"+"')";
+    }
+    else if (localStorage.bg =="northernLights"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2016/02/13/12/26/aurora-1197753_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="space"){
+      document.body.style.backgroundImage = "url('"+'https://images.unsplash.com/photo-1548222606-6c4f581fd09d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1197&q=80'+"')";
+    }
+    else if (localStorage.bg =="blueorange"){
+      document.body.style.backgroundImage = "url('"+'https://images.unsplash.com/photo-1620503374956-c942862f0372?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'+"')";
+    }
+    else if (localStorage.bg =="forest"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2018/08/21/23/29/forest-3622519_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="desert"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2017/06/23/17/46/desert-2435404_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="clouds"){
+      document.body.style.backgroundImage = "url('"+' https://cdn.pixabay.com/photo/2019/05/19/23/47/clouds-4215608_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="moonKite"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2020/02/24/06/33/crescent-4875339_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="pinkBlueSky"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="whiteBrick"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2017/02/15/11/05/texture-2068283__480.jpg'+"')";
+    }
+    else if (localStorage.bg =="cubes?"){
+      document.body.style.backgroundImage = "url('"+'https://images.unsplash.com/photo-1622737133809-d95047b9e673?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80'+"')";
+    }
+    else if (localStorage.bg =="snow"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2015/11/04/11/46/winter-1022401_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="wall"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2016/11/22/20/01/abstract-1850416_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="waterColor"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2017/06/15/23/47/painting-2407262_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="blue"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2016/12/01/20/17/texture-1876097_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="blueGreen"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2017/06/15/17/31/background-2406119_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="neonrainbow"){
+      document.body.style.backgroundImage = "url('"+'https://images.unsplash.com/photo-1566055909643-a51b4271aa47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'+"')";
+    }
+    else if (localStorage.bg =="sky"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2017/06/27/08/08/cloud-2446630_1280.jpg'+"')";
+    }
+    else if (localStorage.bg =="wallPlant"){
+      document.body.style.backgroundImage = "url('"+'https://cdn.pixabay.com/photo/2021/02/21/03/36/empty-room-6035190_1280.jpg'+"')";
+    }
+    else {
+      document.body.style.backgroundImage = "url('" + "defaultclassroom.jpeg" + "')";
+      localStorage.bg = "classroom";
+    }
+
+    function getTime(sec) {
+        let hours   = Math.floor(sec / 3600); // get hours
+        let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+        let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+        // add 0 if value < 10; Example: 2 => 02
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        return hours+':'+minutes+':'+seconds; // Return is HH : MM : SS
+    }
+    
+    function setTime(){
+      const timing = document.getElementById("timer")
+      timing.innerHTML = getTime(localStorage.time);
+    }
+  </script>
+</head>
+
+<style>
+  body,
+  html {
+    height: 100%;
+    /* background-image: url("defaultclassroom.jpeg"); */
+    color: white;
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .plsCenter{
+    top: 80%
+  }
+
+  .true{
+    visibility: visible;
+    font-size: small;
+    width: fit-content;
+    position: absolute;
+    left: 22%;
+  
+  }
+
+  .false{
+    visibility: hidden;
+    font-size: small;
+    /* display: none; */
+    width: fit-content;
+    position: absolute;
+  }
+
+  .redicon{
+  position: relative;
+  height: 10px;
+  width: 10px;
+  top: -5px;
+  right: -65px;
+  float: right;
+  background: red;
+  border: 1px solid black;
+  padding:10px;
+  box-sizing: border-box;
+  border-radius: 100%;
+}
+
+.hideelement{
+  display: none;
+}
+
+.desk{
+  width:fit-content;
+  padding: 0px;
+  margin-bottom: 20px;
+  position: absolute;
+  z-index: 100;
+}
+
+.main_desk {
+  position: relative;
+}
+
+</style>
+
+
+
+
+<body onload="javascript:play();">
+  <div style="float: right; margin-left: 10px;" class="pagebutton"><a href="/inventory"><img
+        src="https://uxwing.com/wp-content/themes/uxwing/download/25-clothes-and-accesories/bag-clothes.svg"
+        width="40" height="40" style="opacity:1;" /></a></div>
+  <div style="float: right; margin-left: 10px;" class="pagebutton"><a href="/shop"><img
+        src="https://uxwing.com/wp-content/themes/uxwing/download/19-e-commerce-currency-shopping/shopping-cart.svg" width="40" height="40"
+        style="opacity:1;" /></a></div>
+    <div class="timer" style="float:left; width: max-content;" >
+      <h2 id="timer">0:00:00</h2>
+    </div>
+    <div class="timer" style="float:left; width: max-content; display:flex; height: fit-content;" >
+      <h2 class="userCount">Study Buddies: </h2><h2 class="userCount" id="numberOfUsers">0</h2>
+    </div>
+    
+    <div style="float: right; top: -10px;" class="pagebutton" id="chatbutton"><a href="/chatRoom"><img
+      src="https://uxwing.com/wp-content/themes/uxwing/download/37-communication-chat-call/chat-edit.svg" width="40" height="40"
+      style="opacity:1; position:absolute;" /></a></div><div id ="notif" class="hideelement redicon" onclick="this.classList.add('hideelement');"></div>
+
+  <div class="plsCenter" id="plsCenter">
+
+  </div>
+
+  
+  <div class="dropup">
+    <div style="float: left;" class="dropbtn"><img src="https://uxwing.com/wp-content/themes/uxwing/download/08-computers-mobile-hardware/headphones.svg" width="40"
+        height="40" style="opacity:1;" /></div>
+    <div class="dropup-content">
+      <p class="txt">Ocean Waves</p>
+      <div class="slidecontainer" onclick="play();" id="ocean">
+        <input type="range" min="0" max="100" value="0" class="slider" id="myRange1">
+      </div>
+      <p class="txt">Rain Drops</p>
+      <div class="slidecontainer" onclick="play();" id="rain">
+        <input type="range" min="0" max="100" value="0" class="slider" id="myRange2">
+      </div>
+      <p class="txt">Lofi Study Music</p>
+      <div class="slidecontainer" onclick="play();" id="lofi">
+        <input type="range" min="0" max="100" value="0" class="slider" id="myRange3">
+      </div>
+      <p class="txt">Birds</p>
+      <div class="slidecontainer" onclick="play();" id="birds">
+        <input type="range" min="0" max="100" value="0" class="slider" id="myRange4">
+      </div>
+      <p class="txt">Cricket</p>
+      <div class="slidecontainer" onclick="play();" id="cricket">
+        <input type="range" min="0" max="100" value="0" class="slider" id="myRange5">
+      </div>
+    </div>
+  </div>
+
+  <div class="dropup2">
+    <div style="float: right;" class="dropbtn2"><img src="https://uxwing.com/wp-content/themes/uxwing/download/11-household-and-furniture/alarm-clock.svg"
+        width="40" height="40" style="opacity:1;" /></div>
+    <div class="dropup-content2">
+      <p style ="color:white; font-weight:bold; top:-20px;">Timer</p>
+      <div id="stopwatchmin" class="stopwatch" contenteditable="true" onchange="checkMin(this.Text)">05</div>
+      <div class="stopwatch" style="left:45px;">:</div>
+      <div id="stopwatchsec" class="stopwatch" contenteditable="true" style="left:60px;">00</div>
+      <ul id="buttons">
+        <li><button onclick="startTimer()" class="button1 mask1"><img src="https://uxwing.com/wp-content/themes/uxwing/download/09-controller-and-music/play-button-round.svg" style="width:20px;height:20px;"></button></li>
+        <li><button onclick="stopTimer()" class="button1"><img src="https://uxwing.com/wp-content/themes/uxwing/download/09-controller-and-music/pause-button-round.svg" style="width:20px;height:20px;"></button></li>
+        <li><button onclick="resetTimer()" class="button2">Reset</button></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <!-- <a href="/shop"><button type="button" class = "button3">Shop</button></a> -->
+
+
+
+  <script>
+    setInterval(setTime, 1000);
+    setInterval(runGetUsers, 1000);
+    setInterval(runGetMessage, 5000);
+    setInterval(runGetUsers2, 1*60*1000)
+
+    const url1 = './fetchLatestMessage'
+    const options2 = {
+      method: 'GET'
+    }
+
+    function getMessageData(url, options){
+        return fetch(url, options)
+        .then( response => response.json());
+      }
+
+    async function getMessage(url1, options2){
+        const response = await getMessageData(url1, options2);
+        target = response["target"];
+        if (localStorage.hasMsg == true){
+          document.getElementById("notif").classList.remove("hideelement");
+        }
+        console.log("reaching here! target: "+target);
+        console.log("{{current_user}}");
+        if (target == {{current_user}}){
+                console.log("reaching here too!");
+                document.getElementById("notif").classList.remove("hideelement");
+                localStorage.hasMsg = true;
+        }
+      }
+
+    function runGetMessage(){
+      getMessage(url1, options2);
+    }
+
+
+    // type = "text/javascript"
+    // src ="{{ url_for('static', filename = 'script.js') }}"
+ 
+
+    var rainAudio = new Audio('rain.mp3');
+    rainAudio.volume = 0;
+    rainAudio.loop = true;
+    var oceanAudio = new Audio('ocean.mp3');
+    oceanAudio.volume = 0;
+    oceanAudio.loop = true;
+    var lofiAudio = new Audio('lofi.mp3');
+    lofiAudio.volume = 0;
+    lofiAudio.loop = true;
+    var birdsAudio = new Audio('birds.wav');
+    birdsAudio.volume = 0;
+    birdsAudio.loop = true;
+    var cricketAudio = new Audio('cricket.wav');
+    cricketAudio.volume = 0;
+    cricketAudio.loop = true;
+
+    const url = './usersToFetch'
+    const options = {
+      method: 'GET'
+    }
+
+    function getUserData(url, options){
+      return fetch(url, options)
+      .then( response => response.json() );
+    }
+
+    async function getUsers(url, options, run){
+      const response = await getUserData(url, options);
+      const numUsers = String(response["Users"].length);
+      const userCount = document.getElementById("numberOfUsers");
+      const hold = document.getElementById("plsCenter");
+      const currentUsers = userCount.innerHTML;
+
+      userCount.innerHTML = numUsers;
+
+      if (numUsers != currentUsers || run == "True"){
+        hold.innerHTML = "";
+        for (let i=0; i<numUsers; i++) {
+          var id = String(response["Users"][i][0]);
+          var time = String(response["Users"][i][4]);
+          var username = String(response["Users"][i][3]);
+          var subject = String(response["Users"][i][2]);
+          var grade = String(response["Users"][i][1]);
+          var messaging = String(response["Users"][i][5]);
+
+          let hours   = Math.floor(parseInt(time) / 3600); // get hours
+          let minutes = Math.floor((parseInt(time) - (hours * 3600)) / 60); // get minutes
+          let seconds = parseInt(time) - (hours * 3600) - (minutes * 60); //  get seconds
+          // add 0 if value < 10; Example: 2 => 02
+          if (seconds >= 30) {minutes = parseInt(minutes) + 1}
+          if (hours   < 10) {hours   = "0"+hours;}
+          if (minutes < 10) {minutes = "0"+minutes;}
+          time = hours+':'+minutes+''; // Return is 00hrs 00mins
+
+          var lst = [time, username, subject, grade, messaging]
+
+          const data = response["Users"];
+          const avatar = data[i][6];
+          const spot1 = data[i][7];
+          const spot2 = data[i][8];
+          const spot3 = data[i][9];
+          const spot4 = data[i][10];
+
+
+          console.log("DATA")
+          console.log(avatar)
+
+
+          var inner = `<div class='hold' id='hold'>
+              <span class='myDIV'>
+
+              <span id="avatar" class="desk" style = "left: 40px; top: -75px;">
+                <img class= "accessory" src='` + avatar + `' width = "75" height = "75">
+              </span>
+
+              <span id="spot1" class="desk" style="left:7px; top:-25px">
+                    <img class= "accessory" src='` + spot1 + `' width = "35" height = "35" placeholder = "">
+              </span>
+              
+              <span id="spot2" class="desk" style="left: 110px; top: -25px;">
+                    <img class= "accessory" src='` + spot2 + `' width = "35" height = "35">
+              </span>
+
+              <span id="spot3" class="desk" style="left: 40px;">
+                  <img class= "accessory" src='` + spot3 + `' width = "27.5" height = "27.5">
+              </span>
+              
+              <span id="spot4" class="desk" style = "left: 80px; top: -10px">
+                    <img class= "accessory" src='` + spot4 + `' width = "35" height = "35">
+              </span>
+              
+              
+
+              <div>
+                <img src='https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/31905/school-desk-with-underside-shelf-clipart-xl.png' class = "main_desk" width='150' height='150'>
+              </div>
+                
+              </span>
+
+              <span class= 'hide'><span id='` + id + `time'>` + time + `</span><br> ` + username + `<br> ` + subject + `<br> ` + grade + `<br> </span>
+
+            </div>`
+
+          if (id == {{current_user}}){
+            if (messaging == 'true'){
+              document.getElementById("chatbutton").classList.remove("hideelement");
+              // console.log("unhiding");
+            }
+            else{
+              document.getElementById("chatbutton").classList.add("hideelement");
+              // console.log("hiding");
+            }
+          }
+          
+          hold.innerHTML += inner;
+        }
+      }
+    }
+
+    function runGetUsers(){
+      getUsers(url, options, "");
+    }
+
+    function runGetUsers2(){
+      console.log("TRUE")
+      getUsers(url, options, "True")
+    }
+
+    const volumeSlider1 = document.getElementById('myRange1');
+    volumeSlider1.addEventListener('input', (e) => {
+      const value1 = e.target.value;
+      oceanAudio.volume = value1 / 100;
+    });
+
+    const volumeSlider2 = document.getElementById('myRange2');
+    volumeSlider2.addEventListener('input', (e) => {
+      const value2 = e.target.value;
+      rainAudio.volume = value2 / 100;
+    });
+
+    const volumeSlider3 = document.getElementById('myRange3');
+    volumeSlider3.addEventListener('input', (e) => {
+      const value3 = e.target.value;
+      lofiAudio.volume = value3 / 100;
+    });
+
+    const volumeSlider4 = document.getElementById('myRange4');
+    volumeSlider4.addEventListener('input', (e) => {
+      const value4 = e.target.value;
+      birdsAudio.volume = value4 / 100;
+    });
+
+    const volumeSlider5 = document.getElementById('myRange5');
+    volumeSlider5.addEventListener('input', (e) => {
+      const value5 = e.target.value;
+      cricketAudio.volume = value5 / 100;
+    });
+
+    function play() {
+      rainAudio.play();
+      oceanAudio.play();
+      lofiAudio.play();
+      birdsAudio.play();
+      cricketAudio.play();
+    }
+
+    const timermin = document.getElementById('stopwatchmin');
+    const timersec = document.getElementById('stopwatchsec');
+
+    var hr = 0;
+    var min = String(timermin.innerHTML)
+    min = checkMin(min);
+    console.log(min);
+    var sec = String(timersec.innerHTML)
+    sec = checkSec(sec);
+    console.log(sec)
+    var stoptime = true;
+
+    function checkSec(x){
+      if (isNaN(x)){
+        return 0;
+      }
+      x = parseInt(x)
+      if (x >= 60){
+        x = 59;
+      }
+      else if (x < 0){
+        x = 0;
+      }
+      return x;
+    }
+
+    function checkMin(x){
+      if (isNaN(x)){
+        return 0;
+      }
+      x = parseInt(x)
+      if (x >= 100){
+        x = 99;
+        timermin.innerHTML = "99";
+      }
+      else if (x < 0){
+        x = 0;
+      }
+      return x;
+    }
+
+    function startTimer() {
+      if (stoptime == true) {
+        stoptime = false;
+        timermin.contentEditable = false;
+        timersec.contentEditable = false;
+        timerCycle();
+      }
+    }
+
+    function stopTimer() {
+      if (stoptime == false) {
+        stoptime = true;
+        timermin.contentEditable = true;
+        timersec.contentEditable = true;
+      }
+    }
+
+    function timerCycle() {
+      if (stoptime == false) {
+        sec = String(timersec.innerHTML);
+        sec = checkSec(sec);
+        min = String(timermin.innerHTML);
+        min = checkMin(min);
+
+        sec = sec - 1;
+
+        
+        if (min == 0 && sec == 0) {
+          stopTimer();
+          resetTimer();
+          alert("Timer has finished!");
+        }
+        else if (sec <= 0) {
+          min = min - 1;
+          sec = 59;
+        }
+
+        if (sec < 10 || sec == 0) {
+          sec = '0' + sec;
+        }
+        if (min < 10 || min == 0) {
+          min = '0' + min;
+        }
+        if (hr < 10 || hr == 0) {
+          hr = '0' + hr;
+        }
+
+        timermin.innerHTML = min;
+        timersec.innerHTML = sec;
+
+        setTimeout("timerCycle()", 1000);
+      }
+    }
+
+    function resetTimer() {
+      timersec.innerHTML = '00';
+      timermin.innerHTML = '05';
+      timermin.contentEditable = true;
+      timersec.contentEditable = true;
+      stoptime = true;
+      hr = 0;
+      sec = 0;
+      min = 5;
+    }
+
+    function getreceiver_id(object){
+            var receiver_id = object.id;
+            console.log("receiving id!")
+            send(receiver_id);
+        }
+
+    function send(id) {
+        console.log(id)
+
+        var data = [id];
+        
+        $.ajax({
+            type: "POST",
+            url: "/set_id",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function(result) {} 
+        });
+    }
+   
+  </script>
+
+</body>
+
+
+
+{% endblock %}

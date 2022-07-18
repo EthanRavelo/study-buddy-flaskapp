@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <style>
+         table, th, td{
+            border: 1px solid;
+         }
+      </style>
+
+   </head>
+   <body>
+      
+      <table>
+         <thead>
+            <tr>
+               <th>Username</th>
+               <th>Sender ID</th>
+               <th>Receiver ID</th>
+               <th>Message</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for message in messages %}
+               <tr>
+                  <td>{{ message.username }}</td>
+                  <td>{{ message.sender_id}}</td>
+                  <td>{{ message.receiver_id }}</td>
+                  <td>{{ message.message}}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br>
+      
+   </body>
+</html>

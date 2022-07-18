@@ -1,0 +1,121 @@
+<html>
+
+<head>
+  {% if title %}
+  <title>{{ title }} - Study Buddy</title>
+  {% else %}
+  <title>Welcome to Studdy Buddy</title>
+  {% endif %}
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<style>
+  hr {
+    clear: both;
+    width: 100%;
+    margin-top: 10px;
+    opacity: 0;
+  }
+</style>
+
+<body onload="getCurrency();">
+  <div class="menu">
+    <span class="pagebutton" style="float: left;"><a href="/homescreen"><img
+          src="https://uxwing.com/wp-content/themes/uxwing/download/07-web-app-development/homepage.svg" width="40" height="40"
+          style="opacity:1;" /></a></span>
+
+    <span class="pagebutton" style="float:left; margin-left: 10px;"><a href="/settings"><img
+          src="https://uxwing.com/wp-content/themes/uxwing/download/33-tools-equipment-construction/settings-gear.svg"
+          width="40" height="40" style="opacity:1;" /></a></span>
+
+    <span class="title">{{ title }}</span>
+
+    <span class="pagebutton" style="float:right; margin-left:10px;" onclick="resetTime()"><a href="/logout"><img
+          src="https://uxwing.com/wp-content/themes/uxwing/download/07-web-app-development/exit-sign.svg" width="40" height="40"
+          style="opacity:1;" /></a></span>
+
+    <div class="coincount" style="float: right; width: max-content; display:flex;" >
+      <img src="https://uxwing.com/wp-content/themes/uxwing/download/16-banking-finance/money-bag.svg" width="40px;"
+        height="40px" style='vertical-align:middle; float:left; padding-right: 2px;' display="inline-block" />
+      
+
+      <h2 id="coinCount">...</h2>
+
+      
+  
+    </div>
+  
+  </div>
+  <hr>
+  
+
+  {% block content %}{% endblock %}
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<script>
+  setInterval(addCoin, 5 * 1000);
+  setInterval(addTime, 1 * 1000);
+
+  const coinCount = document.getElementById("coinCount");
+
+  function resetTime(){
+    console.log("time...")
+    localStorage.time = 0;
+  }
+
+  function getCurrency() {
+    console.log("Grabbing coins from database...")
+    localStorage.coins = '{{ coins | tojson }}';
+    coinCount.innerHTML = localStorage.coins;
+  }
+
+
+  function addCoin(add) {
+    console.log("Coin gained")
+    localStorage.coins = parseInt(localStorage.coins) + 1;
+
+    document.getElementById('coinCount').innerHTML = localStorage.coins;
+    var coins = localStorage.coins;
+
+    var data = [
+      { "coins": coins }
+    ];
+
+    $.ajax({
+      type: "POST",
+      url: "/setCoins",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      dataType: 'json',
+      success: function (result) { }
+    });
+  }
+
+  function addTime(add) {
+    if (isNaN(localStorage.time)) {
+      localStorage.time = 0;
+    }
+    localStorage.time = parseInt(localStorage.time) + 1;
+
+    var time = localStorage.time;
+
+    var data = [
+      { "time": time }
+    ];
+
+    $.ajax({
+      type: "POST",
+      url: "/setTime",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      dataType: 'json',
+      success: function (result) { }
+
+    });
+  }
+</script>
+
+</html>

@@ -1,0 +1,437 @@
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body {
+      margin: 0;
+      font-family: "Lato", sans-serif;
+      background-image: linear-gradient( 180.4deg,  rgb(191, 224, 233) -2.2%, rgb(148, 214, 232) 83.5% );
+      background-attachment: fixed;
+    }
+    
+
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      background-color: rgba(185, 210, 210, 0.549);
+      position: fixed;
+      height: 100%;
+      overflow: auto;
+    }
+    
+    .sidebar a {
+      display: block;
+      color: black;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    .current {
+      background-color: rgba(76, 154, 156, 0.719);
+      color: white;
+    }
+    
+    .sidebar a:hover:not(.active) {
+      background-color: rgb(215, 215, 215);
+      color: white;
+      border: 2px solid black;
+    }
+    
+    div.content {
+      margin-left: 10%;
+    }
+    
+    @media screen and (max-width: 700px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .sidebar a {float: left;}
+      div.content {margin-left: 0;}
+    }
+    
+    @media screen and (max-width: 400px) {
+      .sidebar a {
+        text-align: center;
+        float: none;
+      }
+    }
+    
+    .messagebutton{
+      display: block;
+      color: black;
+      padding: 16px;
+      width: 100%;
+      height: 100px;
+      text-decoration: none;
+      cursor: pointer;
+      margin: none;
+      border-color: 2px, black;
+      font-weight: bold;
+      font-size: 11;
+      letter-spacing: 2px;
+      align-content: center;
+    }
+
+    .messagebutton:hover{
+      background-color: rgba(61, 179, 181, 0.289);
+      color: rgb(60, 60, 60);
+    }
+
+    .is-info {
+      background-color: rgba(61, 179, 181, 0.289);
+    }
+
+    .navbar{
+      display: flex;
+      float: right;
+      margin:5px;
+      margin-left: 14%;
+      width: 86%;
+      background-color: rgba(185, 210, 210, 0.549);
+    }
+
+    .content {
+      float: right;
+      margin:5px;
+    }
+
+    .content2 {
+      float: right;
+      margin:5px;
+      text-align: right;
+      padding: 15px;
+      width: fit-content;
+      background-color: rgba(188, 255, 221, 0.712);
+      letter-spacing: 2px;
+    }
+
+    .content1 {
+      margin:5px;
+      text-align: left;
+      padding: 15px;
+      width: fit-content;
+      background-color: rgba(255, 227, 190, 0.755);
+      letter-spacing: 2px;
+    }
+
+    .msgbubble{
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 20px;
+      border-bottom-left-radius: 0px;
+      box-shadow: 5px 5px #888888;
+    }
+
+    .msgbubble2{
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 20px;
+      border-bottom-right-radius: 0px;
+      box-shadow: 5px 5px #888888;
+    }
+
+
+    .input {
+      width:100%;
+    }
+
+    .media{
+      float: left;
+      margin-left: 10%;
+      width: 80%;
+      border-top: none;
+      margin-top: none;
+      padding-top: none;
+    }
+    
+    .pagebutton1 {
+    background-color: lightgray;
+    opacity: 0.7;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    border-radius: 10px;
+    width: 53px;
+    height: 53px;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    color: coral;
+  }
+}
+
+
+    </style>
+    </head>
+    <body style="overflow-y:hidden;" class="has-navbar-fixed-bottom" id="body">
+
+    <div class="sidebar">
+      {% for users in usersToMessage %}
+        <form class="x" action='chatRoom'>
+        <input type=submit id= {{ users[1] }} value= "{{users[0]}}" class = 'messagebutton' onclick = 'getreceiver_id(this); clearNotif(this);'>
+      </form>
+      <script>
+          if (localStorage.myTarget == "{{users[1]}}"){
+            document.getElementById("{{users[1]}}").classList.add("current");
+            document.getElementById("{{users[1]}}").classList.remove("blink_me");
+          }
+          else{
+            document.getElementById("{{users[1]}}").classList.remove("current");
+          }
+      </script>
+      {% endfor %}
+    </div>
+    
+    <div class="content">
+      
+      <nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
+        <div class="container">
+          <div class="navbar-item is-expanded">
+    
+            <input id="chat_text" class="input" type="text">
+            <a id="chat_btn" class="button is-info">
+              Send
+            </a>
+    
+          </div>
+        </div>
+      </nav>
+      <span class="pagebutton1" style="z-index:2000; right: 0; margin-right:15px; position: fixed;"><a href="/homescreen"><img
+        src="https://cdn-icons-png.flaticon.com/512/25/25694.png" width="40" height="40"
+        style="opacity:1;" /></a></span>
+      <div id="content" class="container" style="overflow-y:auto; margin-bottom: 100px;">
+    
+        {% for message in messages %}
+        <article class="media">
+          <div class="media-content">
+            <div id = "message{{message[4]}}" class="msgbubble content1">
+              <p style="opacity:1;">
+                <strong>{{ message[0] }}</strong>
+                <br> {{ message[1] }}
+              </p>
+            </div>
+          </div>
+        </article>
+        <script>
+            console.log("checkClass script running!!!!")
+            if (String({{message[2] | tojson}}) == {{me | tojson }}){
+              console.log("DIV")
+              document.getElementById('message{{message[4]}}').className = "msgbubble2 content2";
+            }
+        </script>
+        {% endfor %}
+        
+      </div>
+
+
+    </div>
+
+    <script src="https://js.pusher.com/7.1/pusher.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  
+    <script>
+      setInterval(runGetMessage, 3000);
+
+      function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+      history.scrollRestoration = "manual";
+      window.onload = scrollToBottom;
+    
+      var target = "";
+      function getreceiver_id(object){
+            let receiver_id = object.id;
+            localStorage.myTarget = object.id;
+            // console.log("receiving id!")
+            // console.log(receiver_id);
+            // targetReceiver = String(receiver_id);
+            // console.log("targetReceiver");
+            // console.log(targetReceiver);
+            // document.getElementById(object.id+"tab").classList.add("current");
+            send(receiver_id);
+      }
+
+      function clearNotif(object){
+        object.classList.remove("blink_me");
+      }
+
+
+      function send(id) {
+        console.log(id)
+
+        var data = [id];
+        
+        $.ajax({
+            type: "POST",
+            url: "/set_id",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function(result) {} 
+        });
+      }
+
+  
+      var username = '{{username[0]}}';
+      // document.getElementById('username_input').innerHTML = usernametest;
+  
+      // console.log("Hello world!");
+  
+    // $(function() {
+  
+      // let username;
+  
+      // $('#start_chat').on('click', function() {
+  
+      // username = $('#username_input').val();
+      // $('.modal').removeClass('is-active');
+  
+      // });
+  
+      $('#chat_btn').on('click', function (){
+          // $('#content').append('Test');
+  
+          let message = $('#chat_text').val()
+          let name = 'Test';
+          
+          $.post('/newmessage', {'username' : username, 'message' : message}, function() {
+            $('#chat_text').val('');
+          });
+      });
+  
+         // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+  
+      var pusher = new Pusher('2dd35a38909a3742c906', {
+      cluster: 'us2',
+      encrypted: true
+      });
+  
+      var channel = pusher.subscribe('chat-channel');
+
+      // filter channel
+      console.log("CHANNEL")
+      console.log(channel)
+      
+      const url = './fetchMessages'
+      const options = {
+          method: 'GET'
+        }
+
+      function getUserData(url, options){
+        return fetch(url, options)
+        .then( response => response.json() );
+      }
+
+      async function getUsers(url, options){
+        const response = await getUserData(url, options);
+        target = response["target"];
+        return (target);
+      }
+
+    const url1 = './fetchLatestMessage';
+    const options2 = {
+      method: 'GET'
+    }
+
+    function getMessageData(url, options){
+        return fetch(url, options)
+        .then(response => response.json() );
+      }
+
+    async function getMessage(url1, options2){
+        const response = await getMessageData(url1, options2);
+        target = response["target"];
+        sender = response["sender"];
+        console.log(sender);
+        if (target == {{current_user.id}}){
+          console.log("it work");
+          document.getElementById(sender).classList.add("blink_me");
+          localStorage.hasMsg = true;
+        }
+      }
+
+      function runGetMessage(){
+        console.log("runGetMessage working")
+        getMessage(url1, options2);
+      }
+    
+    
+
+      channel.bind('new-message', async function(data) {
+          //let toTarget = await getUsers(url, options);
+
+          let name = data.username;
+          let message = data.message;
+          let sender_id = data.sender_id;
+          let receiver_id = data.receiver_id;
+          let id = data.message_id;
+  
+          console.log("receiver_id: " + receiver_id)
+          console.log("sender_id: " + sender_id)
+          console.log("localStorage.myTarget: " + localStorage.myTarget)
+          //console.log("toTarget: " + toTarget)
+          console.log("me: " + {{ me | tojson }})
+
+          
+          // if (String(receiver_id) == String(localStorage.myTarget) || String(sender_id) == String(target))
+
+          if (String(sender_id) == String({{ me | tojson }}) && String(receiver_id) == String(localStorage.myTarget)) {
+            let message_template = `<article class="media" style ="border-top: none; margin-top: none; padding-top: none;">
+                                      <div class="media-content">
+                                        <div id= "message${id}" class="msgbubble2 content2">
+                                          <p style="opacity:1;">
+                                            <strong>${name}</strong>
+                                            <br> ${message}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </article>`;
+            $('#content').append(message_template);
+          } 
+          else if (String(receiver_id) == String({{ me | tojson }}) && sender_id == String(localStorage.myTarget)) {
+            let message_template = `<article class="media" style="border-top: none; margin-top: none; padding-top: none;">
+                                      <div class="media-content">
+                                        <div id="message${id}" class="msgbubble content1">
+                                          <p style="opacity:1">
+                                            <strong>${name}</strong>
+                                            <br> ${message}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </article>`;
+            $('#content').append(message_template);
+          } 
+          scrollToBottom();
+      });
+      
+      var input = document.getElementById("chat_text");
+      input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          document.getElementById('chat_btn').click();
+        }
+      });
+   
+    </script>
+    
+    </body>
+
+
+
+
+{% endblock %}

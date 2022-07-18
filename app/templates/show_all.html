@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <style>
+         table, th, td{
+            border: 1px solid;
+         }
+      </style>
+
+   </head>
+   <body>
+      
+      <table>
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>User ID</th>
+               <th>Coins</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for user in users %}
+               <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.user_id }}</td>
+                  <td>{{ user.coins }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br>
+      <table>
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>Email</th>
+               <th>School</th>
+               <th>Login Status</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for person in persons %}
+               <tr>
+                  <td>{{ person.id }}</td>
+                  <td>{{ person.email }}</td>
+                  <td>{{ person.school }}</td>
+                  <td>{{ person.logged_in }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br>
+      <table>
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>User ID</th>
+               <th>Items</th>
+               <th>URL</th>
+               <th>Category</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for item in items %}
+               <tr>
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.user_id }}</td>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.url }}</td>
+                  <td>{{ item.category }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br>
+      <table>
+         <h2>Current User's Items</h2>
+         <thead>
+            <tr>
+               <th>Items</th>
+               <th>Category</th>
+               <th>URL</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for x in current_user.items %}
+               <tr>
+                  <td>{{ x.item }}</td>
+                  <td>{{ x.category }}</td>
+                  <td>{{ x.url }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br>
+      <table>
+         <h2>Current User's Data</h2>
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>Subject</th>
+               <th>Grade</th>
+               <th>Allow Messaging</th>
+               <th>Session Time</th>
+               <th>Username</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for x in current_user.currentData %}
+               <tr>
+                  <td>{{ x.user_id }}</td>
+                  <td>{{ x.subject }}</td>
+                  <td>{{ x.year }}</td>
+                  <td>{{ x.messaging }}</td>
+                  <td>{{ x.time}}</td>
+                  <td>{{ x.username}}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      
+   </body>
+</html>

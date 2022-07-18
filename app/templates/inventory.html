@@ -1,0 +1,598 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function openCity(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function bgClicked(background) {
+            if (background !== null){
+                localStorage.bg = background.id;  
+            }
+            else{
+                localStorage.bg = "classroom";
+                background = document.getElementById("classroom");
+            }
+            background.style.outline = "solid #78CC54 4px";
+            background.style.opacity = "0.6";
+        }
+
+        function loadSelected() {
+            if (localStorage.bg == null){
+                localStorage.bg = "classroom";
+            }
+            console.log(localStorage.bg);
+            let bgUsed = document.getElementById(localStorage.bg);
+            console.log(bgUsed);
+            let elements = Array.from(document.getElementsByClassName('bgs'));
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.outline = "none";
+                elements[i].style.opacity = "1";
+            }
+            bgClicked(bgUsed);
+            
+            for (var k = 0; k < elements.length; k++){
+            elements[k].addEventListener('click', function handleClick (event){
+                for (let i = 0; i < elements.length; i++) {
+                    elements[i].style.outline = "none";
+                    elements[i].style.opacity = "1";
+                }
+                this.style.outline = "solid #78CC54 4px";
+                this.style.opacity = "0.6";
+                localStorage.bg = this.id;
+            })
+        }
+        }
+
+        function allowDrop(even) {
+            even.preventDefault();
+        }
+
+        function drag(even) {
+            even.dataTransfer.setData("text", even.target.id);
+        }
+
+        function dropAdd(even, id1) {
+
+            const box = document.getElementById(id1);
+
+            even.preventDefault();
+            
+            var fetchData = even.dataTransfer.getData("text");
+            
+            var url = (document.getElementById(fetchData).src)
+            var category = (document.getElementById(fetchData).alt)
+
+            console.log("LENGTH")
+            console.log(box.childNodes.length)
+
+            if (category == id1 && box.childNodes.length <= 3){
+                even.target.appendChild(document.getElementById(fetchData));
+
+                var data = [
+                {"url":url},
+                {"id":id1}
+                ];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/dropAdd",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function(result) {} 
+                });
+
+            }
+
+            if (String(category) == 'desk' && String(id1) != 'avatar' && box.childNodes.length <= 3){
+                even.target.appendChild(document.getElementById(fetchData));
+
+                var data = [
+                {"url":url},
+                {"id":id1}
+                ];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/dropAdd",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function(result) {} 
+                });
+
+            }
+
+           
+        }
+
+        function dropRemove(even, id1) {
+
+            const box = document.getElementById(id1);
+
+            even.preventDefault();
+            
+            var fetchData = even.dataTransfer.getData("text");
+
+            
+            var url = (document.getElementById(fetchData).src)
+            var category = (document.getElementById(fetchData).alt)
+
+            var whole_span = document.getElementById(id1);
+            var span_category = whole_span.getAttribute("name");
+
+            console.log("SPAN CATEGORY")
+            console.log(span_category) 
+            console.log("IMAGE CATEGORY")
+            console.log(category) 
+            console.log("LENGTH") 
+            console.log(box.childNodes.length)
+
+            if (box.childNodes.length <= 2 && String(category) == String(span_category)) {
+
+                even.target.appendChild(document.getElementById(fetchData));
+
+                var data = [ 
+                    {"url":url},
+                    {"id":id1}
+                ];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/dropRemove",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function(result) {} 
+                });
+            }
+
+            // if (box.childNodes.length == 1 && String(category) == String(span_category) && String(category) == 'desk') {
+
+            // even.target.appendChild(document.getElementById(fetchData));
+
+            // var data = [ 
+            //     {"url":url},
+            //     {"id":id1}
+            // ];
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/dropRemove",
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json",
+            //     dataType: 'json',
+            //     success: function(result) {} 
+            // });
+            // }
+        
+        }
+        
+    </script>
+</head>
+<style>
+    body,
+
+    body {
+        font-family: 'Courier New', Courier, monospace; 
+        font-weight: bold;
+        background: linear-gradient(270deg, #11998E, #16522d);
+        /* background: linear-gradient(270deg, #D8B5FF, #1EAE98); */
+        background-size: 400% 400%;
+        animation: AnimationName 10s ease infinite;
+    }
+
+    @keyframes AnimationName {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+
+    html {
+        height: 100%;
+        /* background-image: url("https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"); */
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .desk {
+        padding: 1px;
+        border: 2px solid #4f4d4d;
+    }
+
+    span {
+        height: 105px;
+        width: 105px;
+        display: inline-block;
+        border: 2px solid black;
+        border-radius: 10px;
+        position: relative;
+        margin: 1px;
+        padding: 2px;
+        color: black;
+        align-content: center;
+        object-fit: cover;
+    }
+
+    .background{
+        height: 150px;
+        width: 240px;
+        display: inline-block;
+        border: 2px solid black;
+        border-radius: 2px;
+        position: relative;
+        margin: 1px;
+        padding: 2px;
+        color: black;
+        align-content: center;
+        object-fit: cover;
+    }
+
+    .desk {
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        height: 60px;
+        width: 60px;
+        display: flex;
+        flex-shrink: 0;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.364);
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        /* object-fit: contain; */
+    }
+
+    .accessory {
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Lato");
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 40px;
+  font-weight: normal;
+  text-transform: uppercase;
+  float: left;
+  margin: 20px 0 100px 10px;
+}
+h1 span {
+  font-size: 13px;
+  display: block;
+  padding-left: 4px;
+}
+
+.tabs {
+font-family: 'Courier New', Courier, monospace;
+  top: -80px;
+  right: -30px;
+  width: 680px;
+  float: none;
+  list-style: none;
+  position: relative;
+  margin: 80px 0 0 10px;
+  text-align: left;
+  z-index: auto;
+}
+
+.tabs:after {
+   content:"";
+   z-index: 3;
+   background:rgb(4, 49, 4);
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+   height:10px;
+   width: 478px;
+   position: absolute;
+   bottom:-56px;
+   left:0;
+}
+
+.tabs li {
+  float: left;
+  display: block;
+}
+.tabs input[type="radio"] {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+}
+.tabs label {
+  display: block;
+  padding: 14px 21px;
+  border-radius: 2px 2px 0 0;
+  font-size: 20px;
+  font-weight: normal;
+  text-transform: uppercase;
+  /* background: #8e44ad; */
+  background: #147f51;
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+ 
+}
+.tabs label:hover {
+    background: #8dc96d;
+    
+}
+.tabs .tab-content {
+  z-index: 2;
+  height: 550px;
+  display: none;
+  overflow: hidden;
+  overflow-y:auto;
+  width: 110%;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 25px;
+  position: absolute;
+  top: 53px;
+  left: 0;
+  /* background: #6387719c; */
+  background: rgb(0, 75, 65);
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+  box-shadow: 5px 10px rgb(4, 49, 4)
+
+}
+.tabs [id^="tab"]:checked + label {
+  top: 0;
+  padding-top: 17px;
+  /* background: #6387719c; */
+  background: rgb(0, 75, 65);
+  
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+}
+
+p.link {
+  clear: both;
+  margin: 380px 0 0 15px;
+}
+p.link a {
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #612e76;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+p.link a:hover {
+  background-color: #522764;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #979597; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(237, 237, 237); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(245, 196, 255); 
+}
+
+.deskstuff {
+    border: 2px, black;
+    border-radius: 10px;
+    background: gray;
+    z-index: 10;
+}
+
+</style>
+
+<body>
+    <div style="float: right;" class="pagebutton"><a href="/shop"><img
+                src="https://uxwing.com/wp-content/themes/uxwing/download/19-e-commerce-currency-shopping/shopping-cart.svg" width="40" height="40"
+                style="opacity:1;" /></a></div>
+
+    <div id="avatar" class="desk" ondrop="dropAdd(event, id)" ondragover="allowDrop(event)"
+        style="left: 1025px; top: 160px;position: absolute; z-index:2; height: 140; width: 140">
+        {% if current_items[0][0] != "none" %}
+            <img class= "accessory" id={{ current_items[0][0] }} alt = {{ current_items[0][2] }} src={{ current_items[0][1] }} draggable="true"
+                ondragstart="drag(event)"><div></div>
+        {% else %}
+            <div></div>
+        {% endif %}         
+    </div>
+
+    <div id="spot1" class="desk" ondrop="dropAdd(event, id)" ondragover="allowDrop(event)"
+        style="left: 920px; top: 250px;position: absolute; z-index:1; height: 80; width: 80;">
+        {% if current_items[1][0] != "none" %}
+            <img class= "accessory" id={{ current_items[1][0] }} alt = {{ current_items[1][2] }} src={{ current_items[1][1] }} draggable="true"
+                ondragstart="drag(event)"><div></div>
+        {% else %}
+            <div></div>
+        {% endif %}  
+    </div>
+
+    <div id="spot2" class="desk" ondrop="dropAdd(event, id)" ondragover="allowDrop(event)"
+        style="left: 1200px; top: 250px;position: absolute; z-index:1; height: 80; width: 80;">
+        {% if current_items[2][0] != "none" %}
+            <img class= "accessory" id={{ current_items[2][0] }} alt = {{ current_items[2][2] }} src={{ current_items[2][1] }} draggable="true"
+                ondragstart="drag(event)"><div></div>
+        {% endif %}  
+    </div>
+
+    <div id="spot3" class="desk" ondrop="dropAdd(event, id)" ondragover="allowDrop(event)"
+        style="left: 1020px; top: 310px;position: absolute; z-index:1; height: 60; width: 60;">
+        {% if current_items[3][0] != "none" %}
+            <img class= "accessory" id={{ current_items[3][0] }} alt = {{ current_items[3][2] }} src={{ current_items[3][1] }} draggable="true"
+                ondragstart="drag(event)"><div></div>
+        {% else %}
+            <div></div>
+        {% endif %}  
+    </div>
+
+    <div id="spot4" class="desk" ondrop="dropAdd(event, id)" ondragover="allowDrop(event)"
+        style="left: 1100px; top: 300px;position: absolute; z-index:1; height: 80; width: 80;">
+        {% if current_items[4][0] != "none" %}
+            <img class= "accessory" id={{ current_items[4][0] }} alt = {{ current_items[4][2] }} src={{ current_items[4][1] }} draggable="true"
+                ondragstart="drag(event)"><div></div>
+        {% else %}
+            <div></div>
+        {% endif %}  
+    </div>
+
+    <br>
+    <ul class="tabs" role="tablist">
+        <li>
+            <input type="radio" name="tabs" id="tab1" checked />
+            <label for="tab1" 
+                   role="tab" 
+                   aria-selected="true" 
+                   aria-controls="panel1" 
+                   tabindex="0">Avatars</label>
+            <div id="tab-content1" 
+                 class="tab-content" 
+                 role="tabpanel" 
+                 aria-labelledby="description" 
+                 aria-hidden="false">
+                 <div id="Avatar">
+                    <p style="color:white; padding-bottom: 5px;">Drag avatar to the desk to equip it. Drag back to unequip.</p>
+                    {% for item in owned_avatar %}
+                        {% if item[1] == "" %}
+                            <span class="bought" id={{ item[3] }} ondrop="dropRemove(event, id)" name = "avatar" ondragover="allowDrop(event)"><div></div><div></div></span>
+                        {% else %}
+                            <span class="bought" id={{ item[3] }} ondrop="dropRemove(event, id)" name = "avatar" ondragover="allowDrop(event)">
+                                <img class="accessory" id={{ item[0] }} alt={{ item[2] }} src={{ item[1] }} draggable="true"
+                                    ondragstart="drag(event)">
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            
+            </div>
+        </li>
+        <li>
+            <input type="radio" name="tabs" id="tab2" />
+            <label for="tab2"
+                   role="tab" 
+                   aria-selected="false" 
+                   aria-controls="panel2" 
+                   tabindex="0">Backgrounds</label>
+            <div id="tab-content2" 
+                 class="tab-content"
+                 role="tabpanel" 
+                 aria-labelledby="specification" 
+                 aria-hidden="true">
+                 <div id="Backgrounds">
+                    <p style="color:white; padding-bottom: 5px;">Click background to equip.</p>
+                    <span class="background bought" id="classroomspan">
+                        <img class="bgs" name="accessory" id="classroom" src="defaultclassroom.jpeg">
+                    </span>
+                    {% for item in owned_background %}
+                    <span class="background bought" id="{{ item[0] }}+'span'">
+                        <img class="bgs" name={{ item[2] }} id={{ item[0] }} src={{ item[1] }}>
+                    </span>
+                    {% endfor %}
+                    </div>
+            </div>
+        </li>
+        <li>
+            <input type="radio" name="tabs" id="tab3" />
+            <label for="tab3"
+                   role="tab" 
+                   aria-selected="false" 
+                   aria-controls="panel2" 
+                   tabindex="0">Accessories</label>
+            <div id="tab-content3" 
+                 class="tab-content"
+                 role="tabpanel" 
+                 aria-labelledby="specification" 
+                 aria-hidden="true">
+            <div id="Desk Accessories">
+                <p style="color:white; padding-bottom: 5px;">Drag accessories to the desk to equip it. Drag back to unequip.</p>
+                {% for item in owned_desk %}
+                    {% if item[1] == "" %}
+                        <span class="bought" id={{ item[3] }} ondrop="dropRemove(event, id)" name = "desk" ondragover="allowDrop(event)"><div></div>
+                        </span>
+                    {% else %}
+                        <span class="bought" id={{ item[3] }} ondrop="dropRemove(event, id)" name = "desk" ondragover="allowDrop(event)">
+                            <img class= "accessory" id={{ item[0] }} alt = {{ item[2] }} src={{ item[1] }} draggable="true"
+                                ondragstart="drag(event)">
+                        </span>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </li>
+    </ul>
+    
+    <div class = "deskstuff">
+        <div style="position:absolute; left:900px; top:300px;z-index:0 ">
+            <img src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/31905/school-desk-with-underside-shelf-clipart-xl.png"
+                width="400" height="400">
+        </div>
+    </div>
+    <script>
+        loadSelected();
+    </script>
+</body>
+
+
+{% endblock %}

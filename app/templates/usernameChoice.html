@@ -1,0 +1,204 @@
+
+<style>
+    body{
+        background-color: rgb(3, 63, 99);
+        height: 100%;
+        /* background-image: url("https://insights.regencylighting.com/hubfs/Hallway-Guide-to-light-bulbs-for-schools.jpg"); */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: rgb(236, 255, 248);
+        font-family: 'Courier New', Courier, monospace;
+    }
+    body {
+	background: linear-gradient(-45deg, #af1de4, #598df4, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+   span {
+        font-family: 'Courier New', Courier, monospace;
+        width:fit-content;
+        display: inline-block;
+        border-radius: 10px;
+        position: relative;
+        margin: 1px;
+        margin-top: 15px;
+        margin-bottom: 0px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: black;
+        align-content: center;
+        object-fit: cover;
+        text-align: center;
+        font-size: larger;
+        letter-spacing: 3px;
+        font-weight: bold;
+    }
+
+    span:hover {
+        /* background-color:rgb(81, 203, 32); */
+        background-color: rgb(240, 128, 128);
+        /* color:rgb(236, 255, 248); */
+        cursor: pointer;
+    }
+
+    label{
+        font-size: larger;
+        padding-left: 5px;
+    }
+
+    .picked{
+        border: 5px solid black;
+        /* background-color:rgb(81, 203, 32); */
+        background-color: rgb(240, 128, 128);
+        /* color:rgb(236, 255, 248); */
+    }
+
+    .unpicked{
+        border: 2px solid black;
+        background-color: rgb(227, 218, 255);
+    }
+
+    .center{
+        margin:auto;
+        width: fit-content;
+    }
+
+    input{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 15px;
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* background-color: rgb(117, 244, 244); */
+        background-color: rgb(212, 224, 155);
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    input:hover{
+        background-color: rgb(207, 200, 109);
+        cursor: pointer;
+    }
+
+    .plsCenter{
+        margin: auto;
+        width: fit-content;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        padding: 25px;
+        padding-left: 50px;
+        padding-right:50px;
+    }
+
+    .logo{
+    height: 160px;
+    width: 200px;
+    align-items: center;
+    /* mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%);
+   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); */
+   /* filter: opacity(0.5) drop-shadow(0 0 0 blue); */
+  }
+
+  .mask{
+    -webkit-mask-image: url("logo.png");
+    mask-image: url("logo.png");
+    mask-size: 200px 160px;
+    -webkit-mask-size: 200px 160px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  .logoholder{
+    height: 300px;
+    width: 300px;
+    align-items: center;
+  }
+
+</style>
+
+
+<body onload="localStorage.time = 0;">
+    <center><div class="logoholder">
+    <br><br><img class ="mask logo" src="https://media2.giphy.com/media/2tNvsKkc0qFdNhJmKk/giphy.gif?cid=790b761165bda8eac9089809f92b5e6dfb5deffce245a91e&rid=giphy.gif&ct=g"><br>
+    </div></center>
+    <div class="plsCenter">
+        
+        
+        <h1 class="center">Choose Your Username</h1>
+
+        <div class="center">
+            {% for adjective in lst %}
+                <span class="unpicked" id="{{ adjective }}" onclick="choice(this)">{{ adjective }}</span>
+            {% endfor %}
+        </div>
+        <br>
+        <form class="center" action="settings">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        var click = new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/clickUp.mp3')
+        var submit = new Audio('submitSound.wav')
+
+        function choice(object){
+            var id = object.id;
+            var element = document.getElementById(id);
+            var picked = document.getElementsByClassName("picked");
+
+            click.load();
+            click.play();
+
+            for (let i=0; i<picked.length; i++){
+                picked[i].className = "unpicked"
+            }
+
+            element.className = "picked";
+            send(id);
+        }
+
+        function send(username) {
+            console.log("Adding to database...")
+
+            var data = [
+                {"username":username},
+            ];
+            
+            $.ajax({
+                type: "POST",
+                url: "/setUsername",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {} 
+            });
+        }
+    </script>
+    
+</body>

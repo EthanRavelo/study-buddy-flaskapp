@@ -1,0 +1,74 @@
+<style>
+   table, th, td{
+      border: 1px solid;
+   }
+</style>
+
+
+<table>
+   <h3>All Accounts:</h3>
+   <thead>
+      <tr>
+         <th>ID</th>
+         <th>Email</th>
+         <th>School</th>
+         <th>Login Status</th>
+      </tr>
+   </thead>
+   
+   <tbody>
+      {% for person in persons %}
+         <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.email }}</td>
+            <td>{{ person.school }}</td>
+            <td>{{ person.logged_in }}</td>
+         </tr>
+      {% endfor %}
+   </tbody>
+</table>
+<br>
+<table>
+   <h3>All Logged In Users:</h3>
+   <thead>
+      <tr>
+         <th>Login Status</th>
+         <th>Email</th>
+         <th>School</th>
+      </tr>
+   </thead>
+   
+   <tbody>
+      {% for user in user_lst %}
+         <tr>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+         </tr>
+      {% endfor %}
+   </tbody>
+</table>
+<br>
+<table>
+   <h3>All Logged In Users From Current User's School:</h3>
+   <thead>
+      <tr>
+         <th>Login Status</th>
+         <th>Email</th>
+         <th>School</th>
+      </tr>
+   </thead>
+   
+   <tbody>
+      {% for user in school %}
+         <tr>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+         </tr>
+      {% endfor %}
+   </tbody>
+</table>
+
+
+

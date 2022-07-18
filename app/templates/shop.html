@@ -1,0 +1,666 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function openCity(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</head>
+<style>
+    body,
+    
+    body {
+        font-family: 'Courier New', Courier, monospace; 
+        font-weight: bold;
+        background: linear-gradient(270deg, rgb(35,25,66), rgb(224,177,203));
+        background-size: 400% 400%;
+        animation: AnimationName 10s ease infinite;
+    }
+
+    @keyframes AnimationName {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+    
+
+    html {
+        height: 100%;
+        /* background-image: url("https://bestof.nyc3.digitaloceanspaces.com/devsnap.me/sam/one-element-css-snow.gif"); */
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .accessory {
+        opacity: 1;
+        width: 100%;
+        height: 75%;
+    }
+
+    .accessorybg {
+        opacity: 1;
+        width: 100%;
+        height: 83%;
+    }
+
+    img:hover {
+        opacity: 0.75;
+    }
+
+    span {
+        height: 135px;
+        width: 105px;
+        display: inline-block;
+        border: 2px solid black;
+        border-radius: 10px;
+        position: relative;
+        margin: 1px;
+        padding: 2px;
+        color: black;
+        align-content: center;
+        object-fit: cover;
+    }
+
+    .coin {
+        content: url("https://cdn1.iconfinder.com/data/icons/cash-coin-essentials-colored/48/JD-15-512.png");
+        width: 30px;
+        height: 30px;
+        vertical-align: bottom;
+        padding-top: 3px;
+    }
+
+    .background {
+        height: 200px;
+        width: 320px;
+        display: inline-block;
+        border: 2px solid black;
+        border-radius: 5px;
+        position: relative;
+        margin: 1px;
+        padding: 3px;
+        color: black;
+        align-content: center;
+    }
+
+    #coinCount {
+        margin: 2px;
+        vertical-align: middle;
+        margin-top: 7px;
+        float: inline-start;
+    }
+
+    .coincount {
+        background-color: white;
+        opacity: 0.7;
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+        border-radius: 10px;
+        overflow: hidden;
+        /* width: fit-content;
+        height: auto; */
+    }
+
+    .unbought {
+        cursor: pointer;
+        /* opacity: 0.5; */
+        background-color: rgb(255, 255, 255);
+    }
+    
+    form {
+        color: transparent;
+    }
+
+    .notreal{
+        display: none;
+        color: transparent;
+        opacity: 0;
+    }
+
+    .buymenu{
+        top:-50px;
+        left:-40px;
+        margin-top: 50px;
+        float: right;
+        margin-right: 100px;
+        height: 58%;
+        width: 30%;
+        background-color: rgba(245, 245, 245, 0.327);
+        border: 2px solid rgb(255, 255, 255);
+        border-collapse: collapse;
+        border-radius: 10px;
+        padding: 5px;
+        position: relative;
+        box-shadow: 5px 10px rgb(58, 28, 89);
+    }
+
+   
+
+    .buybutton{
+        margin-top: 25px;
+        /* background-color: rgb(71, 34, 125); */
+        background-color: #1985A1;
+        opacity: 0.7;
+        border: 2px solid rgb(255, 255, 255);
+        border-collapse: collapse;
+        padding: 5px;
+        border-radius: 8px;
+        width: 150px;
+        height: 33px;
+        text-align: center;
+        margin-bottom: 100px;
+        vertical-align: middle;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        opacity: 1;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        align-self: center;
+    }
+
+    .buybutton:hover{
+        background-color: rgb(18, 104, 126);
+        cursor: pointer;
+    }
+
+    .bought {
+        vertical-align: top;
+        background-color: #b8ebd0d6;
+        font-size: 15px;
+    }
+
+    .itemDisplay {
+        margin-top: 30px;
+        border: 2px solid rgb(255, 255, 255);
+    }
+
+
+</style>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Lato");
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 40px;
+  font-weight: normal;
+  text-transform: uppercase;
+  float: left;
+  margin: 20px 0 100px 10px;
+}
+h1 span {
+  font-size: 13px;
+  display: block;
+  padding-left: 4px;
+}
+
+.tabs {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  top: -50px;
+  right: -30px;
+  width: 680px;
+  float: none;
+  list-style: none;
+  position: relative;
+  margin: 80px 0 0 10px;
+  text-align: left;
+  z-index: auto;
+}
+
+.tabs:after {
+   content:"";
+   z-index: 3;
+   background:rgb(58, 28, 89);
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px; 
+   height:10px;
+   width: 478px;
+   position: absolute;
+   bottom:-60px;
+   left:0;
+}
+
+.tabs li {
+  float: left;
+  display: block;
+}
+.tabs input[type="radio"] {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+}
+.tabs label {
+  display: block;
+  padding: 14px 21px;
+  border-radius: 2px 2px 0 0;
+  font-size: 20px;
+  font-weight: normal;
+  text-transform: uppercase;
+  /* background: #8e44ad; */
+  background: #1985A1;
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+ 
+}
+.tabs label:hover {
+    background: #622e76a4;
+    
+}
+.tabs .tab-content {
+  z-index: 2;
+  height: 550px;
+  display: none;
+  overflow: hidden;
+  overflow-y:auto;
+  width: 115%;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 25px;
+  position: absolute;
+  top: 53px;
+  left: 0;
+  background: #622e76a4;
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+  box-shadow: 5px 10px rgb(58, 28, 89);
+
+}
+.tabs [id^="tab"]:checked + label {
+  top: 0;
+  padding-top: 17px;
+  background: #622e76a4;
+  
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+}
+
+p.link {
+  clear: both;
+  margin: 380px 0 0 15px;
+}
+p.link a {
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #612e76;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+p.link a:hover {
+  background-color: #522764;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #979597; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(237, 237, 237); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(245, 196, 255); 
+}
+
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<body>
+    <div style="float: right; margin-left: 10px;" class="pagebutton"><a href="/inventory"><img
+                src="https://uxwing.com/wp-content/themes/uxwing/download/25-clothes-and-accesories/bag-clothes.svg"
+                width="40" height="40" style="opacity:1;" /></a></div>
+
+    <ul class="tabs" role="tablist">
+        <li>
+            <input type="radio" name="tabs" id="tab1" checked />
+            <label for="tab1" 
+                   role="tab" 
+                   aria-selected="true" 
+                   aria-controls="panel1" 
+                   tabindex="0">Avatars</label>
+            <div id="tab-content1" 
+                 class="tab-content" 
+                 role="tabpanel" 
+                 aria-labelledby="description" 
+                 aria-hidden="false">
+                 <div id="Avatar">
+                    {% for item in unowned_avatar %}
+                        <span class="unbought" id={{ item[4] }} onclick="displayItem(this, {{ item[3] }})">
+                            <img class="accessory"
+                                name={{ item[2] }}
+                                id={{ item[0] }}
+                                src={{ item[1] }}>
+                            {{ item[3] }}<img class="coin"/>
+                        </span>
+                    {% endfor %}
+            
+                    {% for item in owned_avatar %}
+                        <span class="bought" id={{ item[0] }}>
+                            <img class="accessory"
+                                name={{ item[2] }}
+                                id={{ item[0] }}
+                                src={{ item[1] }}>
+                            Bought
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </li>
+        <li>
+            <input type="radio" name="tabs" id="tab2" />
+            <label for="tab2"
+                   role="tab" 
+                   aria-selected="false" 
+                   aria-controls="panel2" 
+                   tabindex="0">Backgrounds</label>
+            <div id="tab-content2" 
+                 class="tab-content"
+                 role="tabpanel" 
+                 aria-labelledby="specification" 
+                 aria-hidden="true">
+                 <div id="Backgrounds">
+                    {% for item in unowned_background %}
+                            <span class="background unbought" id={{ item[4] }} onclick="displayItem(this, {{ item[3] }})">
+                                <img class="accessorybg"
+                                    name={{ item[2] }}
+                                    id={{ item[0] }}
+                                    src={{ item[1] }}>
+                                {{ item[3] }}<img class="coin"/>
+                            </span>
+                        {% endfor %}
+                
+                        {% for item in owned_background %}
+                            <span class="background bought" id={{ item[0] }}>
+                                <img class="accessorybg"
+                                    name={{ item[2] }}
+                                    id={{ item[0] }}
+                                    src={{ item[1] }}>
+                                Bought
+                            </span>
+                        {% endfor %}
+                      
+                    </div>
+            </div>
+        </li>
+        <li>
+            <input type="radio" name="tabs" id="tab3" />
+            <label for="tab3"
+                   role="tab" 
+                   aria-selected="false" 
+                   aria-controls="panel2" 
+                   tabindex="0">Accessories</label>
+            <div id="tab-content3" 
+                 class="tab-content"
+                 role="tabpanel" 
+                 aria-labelledby="specification" 
+                 aria-hidden="true">
+                 <div id="Desk Accessories">
+                    {% for item in unowned_desk %}
+                        <span class="unbought" id={{ item[4] }} onclick="displayItem(this, {{ item[3] }})">
+                            <img class="accessory"
+                                name={{ item[2] }}
+                                id={{ item[0] }}
+                                src={{ item[1] }}>
+                            {{ item[3] }}<img class="coin"/>
+                        </span>
+                    {% endfor %}
+            
+                    {% for item in owned_desk %}
+                        <span class="bought" id={{ item[0] }}>
+                            <img class="accessory"
+                                name={{ item[2] }}
+                                id={{ item[0] }}
+                                src={{ item[1] }}>
+                            Bought
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- <div class="tab">
+        <button class="tablinks" onmouseover="openCity(event, 'Avatar')">Avatars</button>
+        <button class="tablinks" onmouseover="openCity(event, 'Backgrounds')">Backgrounds</button>
+        <button class="tablinks" onmouseover="openCity(event, 'Desk Accessories')">Desk Accessories</button>
+    </div> -->
+
+    <!-- <div id="Avatar" class="tabcontent">
+        {% for item in unowned_avatar %}
+            <span class="unbought" id={{ item[4] }} onclick="displayItem(this, {{ item[3] }})">
+                <img class="accessory"
+                    name={{ item[2] }}
+                    id={{ item[0] }}
+                    src={{ item[1] }}>
+                {{ item[3] }}<img class="coin"/>
+            </span>
+        {% endfor %}
+
+        {% for item in owned_avatar %}
+            <span class="bought" id={{ item[0] }}>
+                <img class="accessory"
+                    name={{ item[2] }}
+                    id={{ item[0] }}
+                    src={{ item[1] }}>
+                Bought
+            </span>
+        {% endfor %}
+
+       
+    </div>
+    <div id="Backgrounds" class="tabcontent">
+    {% for item in unowned_background %}
+            <span class="background unbought" id={{ item[4] }} onclick="displayItem(this, {{ item[3] }})">
+                <img class="accessory"
+                    name={{ item[2] }}
+                    id={{ item[0] }}
+                    src={{ item[1] }}>
+                {{ item[3] }}<img class="coin"/>
+            </span>
+        {% endfor %}
+
+        {% for item in owned_background %}
+            <span class="background bought" id={{ item[0] }}>
+                <img class="accessory"
+                    name={{ item[2] }}
+                    id={{ item[0] }}
+                    src={{ item[1] }}>
+                Bought
+            </span>
+        {% endfor %}
+      
+    </div>
+
+    <div id="Desk Accessories" class="tabcontent">
+        {% for item in unowned_desk %}
+            <span class="unbought" id={{ item[4] }} onclick="displayItem(this, {{ item[3] }})">
+                <img class="accessory"
+                    name={{ item[2] }}
+                    id={{ item[0] }}
+                    src={{ item[1] }}>
+                {{ item[3] }}<img class="coin"/>
+            </span>
+        {% endfor %}
+
+        {% for item in owned_desk %}
+            <span class="bought" id={{ item[0] }}>
+                <img class="accessory"
+                    name={{ item[2] }}
+                    id={{ item[0] }}
+                    src={{ item[1] }}>
+                Bought
+            </span>
+        {% endfor %}
+       
+
+    </div> -->
+    <br>
+    <div class = "buymenu">
+        <center><span style ="height: 289px; width: auto;" class ="itemDisplay" id="itemDisplay">
+            <img style ="opacity: 1; height: 256px; width: 256px;" id = "itemDisplayImg" src="https://static.thenounproject.com/png/1554489-200.png"><br>
+            <div id='displayPrice'></div>
+        </span>
+        <div class ="buybutton" id ="buybutton">
+            BUY
+        </div>
+    </center>
+    </div>
+    <!-- <img id="drag1" src="https://i.pinimg.com/originals/17/ad/c2/17adc26578ac288f9321a06e2dd5d835.png" draggable="true" ondragstart="drag(event)" width="336" height="69"> -->
+
+
+    <script>
+        
+        function post(img) {
+            console.log("Adding to database...")
+            var id = String(img.slice(7));
+            var image = document.getElementById(id);
+            var url = image.src;
+            
+            var name = image.id;
+            var category = image.name;
+
+            var data = [
+                {"url":url},
+                {"name":name},
+                {"category":category}
+            ];
+            
+            $.ajax({
+                type: "POST",
+                url: "/getImage",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {} 
+            });
+        }
+
+
+        function updateCoin(add) {
+            document.getElementById('coinCount').innerHTML = localStorage.coins;
+            var coins = localStorage.coins;
+
+            var data = [
+                {"coins":coins}
+            ];
+
+            $.ajax({
+                type: "POST",
+                url: "/setCoins",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {} 
+            });
+        }
+
+
+        function canBuy(img, price) {
+            console.log("Buying item...");
+            var id = String(img.id);
+            var img_id = id.slice(7);
+            var src = String(document.getElementById(img_id).src);
+
+            if (document.getElementById(img_id).className == "accessory") {
+                var inner = "<img class=\'accessory\'' src=\'" + src + "\''>Bought"
+            } else {
+                var inner = "<img class=\'accessorybg\'' src=\'" + src + "\''>Bought"
+            }
+
+            
+            var element = document.getElementById(id);
+
+            if (element.classList.contains("bought")){
+                element.onclick = null;
+            }
+            else if (localStorage.coins >= price) {
+                element.classList.remove('unbought');
+                element.classList.add('bought');
+                localStorage.coins = parseInt(localStorage.coins) - price;
+                coinCount.innerHTML = localStorage.coins;
+                post(id);
+                updateCoin();
+                element.innerHTML = inner
+            }
+            else {
+                alert("Need more Study Coins!");
+            }
+        }
+
+        function displayItem(img, price) {
+            var id = String(img.id);
+            var img_id = id.slice(7);
+            var source = String(document.getElementById(img_id).src);
+            if (img.classList.contains("background")){
+                document.getElementById("itemDisplayImg").style = "opacity: 1; height: 256px; width: 376px;";
+            }
+            else{
+                document.getElementById("itemDisplayImg").style = "opacity: 1; height: 256px; width: 256px;";
+            }
+            document.getElementById("itemDisplayImg").src = source;
+            document.getElementById("buybutton").onclick = null;
+            document.getElementById("buybutton").onclick = function(event) {canBuy(img, price);}
+            document.getElementById("displayPrice").innerHTML = price + "<img class=\"coin\"/>"
+        }
+
+    </script>
+    <body>
+
+{% endblock %}

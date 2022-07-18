@@ -1,0 +1,181 @@
+{% block content %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf=8">
+    <title> Login / Sign Up Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<style>
+    html,
+    body {
+        --color-primary: #009579;
+        --color-primary-dark: #007f67;
+        --color-secondary: #252c6a;
+        --color-error: #cc3333;
+        --color-success: #4bb544;
+        --border-radius: 4px;
+
+        margin: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+
+<body style="background: url('login.jpeg'); background-size:cover;">
+    <div class="container">
+        <form method = "POST" class="form" id="createAccount">
+            <h1 class="form__title" style="color:black;">Create Account</h1>
+            <div class="form__message form__message--error"></div>
+            <!-- <div class="form__input-group">
+            <input type="text" id="signupUsername" class="form__input" autofocus placeholder="Username">
+            <div class="form__input-error-message"></div>
+        </div> -->
+            <div class="form__input-group">
+                <input
+                value = "test@gmail.com"
+                type="email"
+                class="form__input"
+                id="email"
+                name="email"
+                autofocus placeholder="Enter email"
+                />
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="school" id = "school" name = "school" class="form__input" autofocus placeholder="School">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="student_id" id = "student_id" name = "student_id" class="form__input" autofocus placeholder="Student ID#">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" id = "password1" name = "password1" class="form__input" autofocus placeholder="Password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" id = "password2" name = "password2" class="form__input" autofocus placeholder="Confirm password">
+                <div class="form__input-error-message"></div>
+            </div>
+        
+            <button class="form__button" type="submit" onclick="clearCache();">Continue</button>
+            <p class="form__text">
+                <a class="form__link" href="/login" id="linkLogin">Already have an account? Sign in</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        function clearCache(){
+        if ('{{first_time}}' == 'True'){
+            localStorage.clear();
+        }
+        }
+        
+        function setFormMessage(formElement, type, message) {
+            const messageElement = formElement.querySelector(".form__message");
+            messageElement.textContent = message;
+            messageElement.classList.remove("form__message--success", "form__message--error");
+            messageElement.classList.add(`form__message--${type}`);
+        }
+
+        function setInputError(inputElement, message) {
+            inputElement.classList.add("form__input--error");
+            inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
+        }
+
+        function clearInputError(inputElement) {
+            inputElement.classList.remove("form__input--error");
+            inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginForm = document.querySelector("#login");
+            const createAccountForm = document.querySelector("#createAccount");
+
+            document.querySelector("#linkCreateAccount").addEventListener("click", e => {
+                e.preventDefault();
+                loginForm.classList.add("form--hidden");
+                createAccountForm.classList.remove("form--hidden");
+            });
+
+            document.querySelector("#linkLogin").addEventListener("click", e => {
+                e.preventDefault();
+                loginForm.classList.remove("form--hidden");
+                createAccountForm.classList.add("form--hidden");
+            });
+
+            // loginForm.addEventListener("submit", e => {
+            //     e.preventDefault();
+
+                // Perform your AJAX/Fetch login
+            //     const form = {
+            //         email: document.querySelector("#email"),
+            //         password: document.querySelector("#password"),
+            //         submit: document.querySelector("#signin-btn-submit"),
+            //         messages: document.getElementById("form-messages"),
+            //     };
+            //     let button = form.submit.addEventListener("click", (e) => {
+            //         e.preventDefault();
+            //         const login = "https://ffcc-app.herokuapp.com/user/login";
+
+            //         fetch(login, {
+            //             method: "POST",
+            //             headers: {
+            //                 Accept: "application/json, text/plain, */*",
+            //                 "Content-Type": "application/json",
+            //             },
+            //             body: JSON.stringify({
+            //                 email: form.email.value,
+            //                 password: form.password.value,
+            //             }),
+            //         })
+            //             .then((response) => response.json())
+            //             .then((data) => {
+            //                 console.log(data);
+            //                 // code here //
+            //                 if (data.error) {
+            //                     alert("Error Password or Username"); /*displays error message*/
+            //                 } else {
+            //                     window.open(
+            //                         "homescreen.html"
+            //                     ); /*opens the target page while Id & password matches*/
+            //                 }
+            //             })
+            //             .catch((err) => {
+            //                 console.log(err);
+            //             });
+            //     });
+            //     setFormMessage(loginForm, "error", "Invalid username/password combination");
+            // });
+
+            document.querySelectorAll(".form__input").forEach(inputElement => {
+                inputElement.addEventListener("blur", e => {
+                    if (e.target.id === "signupUsername" && e.target.value.length > 0 && e.target.value.length < 10) {
+                        setInputError(inputElement, "Username must be at least 10 characters in length");
+                    }
+                });
+
+                inputElement.addEventListener("input", e => {
+                    clearInputError(inputElement);
+                });
+            });
+        });
+    </script>
+</body>
+
+
+
+
+
+
+
+{% endblock %}

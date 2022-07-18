@@ -1,0 +1,92 @@
+
+<head>
+    <title>Food(ajax test)</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="calc-container">
+      <h1>Food Form</h1>
+      <label>Enter Ice Cream Flavor:</label>
+      
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flavor" value="chocolate" id="chocolate">
+        <label class="form-check-label" for="chocolate">
+          Chocolate
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flavor" value="vanilla" id="vanilla" checked>
+        <label class="form-check-label" for="vanilla">
+          Vanilla
+        </label>
+     </div>
+     <br>
+
+    <span class="unbought cannotBuy" onclick="post('cat1');">
+        <img id="cat1" name='avatar' class="accessory" src="https://cdn2.iconfinder.com/data/icons/cute-animal-head/64/Animal_Head_Icon_Set-09-512.png" width="50px">
+    </span>
+
+    <br><br>
+
+     <input type="submit" name="next" value="Submit" onclick="send();">
+     
+     <h2>Results</h2>
+     <h3 id="results"></h3>
+     <h3 id="url"></h3>
+
+    </div>
+
+    <script>
+        function post(id) {
+            console.log("Sucess")
+            var image = document.getElementById(id);
+            var results = document.getElementById('url');
+            var url = image.src;
+            var name = image.id;
+            var category = image.name;
+
+            var data = [
+                {"url":url},
+                {"name":name},
+                {"category":category}
+            ];
+
+            $.ajax({
+                type: "POST",
+                url: "/getImage",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result){}
+            });
+        }
+
+
+        function send() {
+            var flavor = document.getElementsByName('flavor');
+            var image = document.getElementById('cat1');
+            var results = document.getElementById('results');
+
+            for(var i=0; i<flavor.length; i++) {
+                if(flavor[i].checked) var selectedFlavor = flavor[i].value;
+            }
+
+            var server_data = [
+                {"selectedFlavor":selectedFlavor}
+            ];
+
+            $.ajax({
+                type: "POST",
+                url: "/ajax_test",
+                data: JSON.stringify(server_data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {
+                    results.innerHTML = "You chose " + result; 
+                } 
+            });
+        }
+    </script>
+</body>
