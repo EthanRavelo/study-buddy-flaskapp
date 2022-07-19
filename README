@@ -1,0 +1,63 @@
++++ Instructions for running Flask and this small application +++
+
+In your shell/command-line/terminal (not working! ask us!! :-)
+
+
++++ [1] Install Flask using your preferred Python's pip or pip3 installer.
+    You may need to include a path to pip, e.g., /path-to-pip/pip install flask :
+
+    /path-to-pip/pip install flask
+
+Notes:
+
+  If you're using an anaconda version of Python, you already have flask.
+
+  Since there is an image-inverting example, you may also have to run
+    /path-to-pip/pip install Pillow
+
+  Optionally -- you can first create a venv (virtual environmnt) as described on the Flask install website: 
+  flask.palletsprojects.com/en/2.0.x/installation/
+
+
++++ [2] Be sure you know where the week2 files are for this class...
+
+Still at your shell/command-line/terminal:
+
+    cd within our week 2's files ... to FlaskAppStarter
+
+
++++ [3] Set environment variables, different for Mac vs Windows:
+
+[Mac] If you're on a MAC/Linux, run these two commands at the terminal:
+    export FLASK_APP=example-app.py   
+    export FLASK_ENV=development   
+    
+[Win] If you're on a Windows machine, run these two commands at the command-line:    
+    set FLASK_APP=example-app.py   
+    set FLASK_ENV=development    
+
+If the above commands work, you won't see any response.
+
+
++++ [4] Run Flask:
+
+Still at the command-line, run
+
+    python -m flask run
+
+(be sure you're in the FlaskAppStarter folder)
+If it works, you should see a number of messages, and then
+
+
++++ [5] Find your Flask Application from your browser:
+
+Paste this url into a new tab of your browser:        
+
+    http://127.0.0.1:5000/ 
+
+
+Let me&us know if there are troubles!
+
+(If Flask simply refuses to work, our fall-back is to write substitute in Python and check it there... 
+ However, that's not as fun -- and not as "full-stack!")
+
