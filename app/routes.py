@@ -1213,7 +1213,7 @@ def chatRoom():
     for data3 in currentdata:
         userdata.append([str(data3.username)])
 
-    return render_template('chatRoom.html', title='CHAT ROOM', usersToMessage = returnLst, messages=messageList, username=userdata[0], me=me)
+    return render_template('chatRoom.html', title='chat room', usersToMessage = returnLst, messages=messageList, username=userdata[0], me=me)
 
 
 
