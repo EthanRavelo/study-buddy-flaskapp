@@ -455,7 +455,7 @@ def show_messages():
 @app.route('/index')
 @app.route('/')
 def index():
-    return render_template('index.html', title='Home')
+    return render_template('homescreen.html', title='Home')
 
 
 @app.route('/login',methods=['GET','POST'])
