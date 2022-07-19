@@ -452,10 +452,10 @@ def show_messages():
 
 
 # Home page, renders the index.html template
-@app.route('/index')
+# @app.route('/index')
 @app.route('/')
 def index():
-    return render_template('homescreen.html', title='Home')
+    return logout()
 
 
 @app.route('/login',methods=['GET','POST'])
