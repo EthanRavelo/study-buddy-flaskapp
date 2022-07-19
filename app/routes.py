@@ -1011,7 +1011,7 @@ def settings():
         
         return redirect(url_for('homescreen'))
         
-    return render_template('settings.html', title='SETTINGS', coins=user.coins, lst=lst, name=a, info=info)
+    return render_template('settings.html', title='settings', coins=user.coins, lst=lst, name=a, info=info)
 
 pusher_client = pusher.Pusher(
   app_id='1429475',
